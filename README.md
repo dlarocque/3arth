@@ -2,6 +2,8 @@
 
 Fun site that uses three.js to render our solar system
 
+<img src="screenshot.png" />
+
 ## Setting up for local development
 
 `npm install`
