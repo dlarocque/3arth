@@ -10,25 +10,11 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.z = 30;
+camera.position.z = 40;
 camera.position.x = 0
 
-// Torus
-const geometry = new THREE.SphereGeometry(3, 1000, 1000);
-const material = new THREE.MeshStandardMaterial( {color: 0xff6347} );
-const torus = new THREE.Mesh(geometry, material);
-
-scene.add(torus)
-
-// Lights
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5, 5, 5);
-const ambientLight = new THREE.AmbientLight(0xffffff);
-
-scene.add(pointLight, ambientLight);
-
 function addStar() {
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  const geometry = new THREE.SphereGeometry(0.1, 12, 12);
   const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
   const star = new THREE.Mesh(geometry, material);
 
@@ -40,13 +26,35 @@ function addStar() {
   scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(400).fill().forEach(addStar);
+
+// Planet
+const planetGeometry = new THREE.SphereGeometry(3, 24, 24);
+const materialGeometry = new THREE.MeshStandardMaterial( {color: 0xff6347} );
+const planet = new THREE.Mesh(planetGeometry, materialGeometry);
+
+const redPlanetTexture = new THREE.TextureLoader().load('redplanet.jpeg');
+const redPlanetGeometry = new THREE.SphereGeometry(5, 24, 24);
+const redPlanetMaterial = new THREE.MeshBasicMaterial( { map: redPlanetTexture } );
+const redPlanet = new THREE.Mesh(redPlanetGeometry, redPlanetMaterial);
+redPlanet.position.x = 20
+redPlanet.position.y = 20
+
+scene.add(planet)
+scene.add(redPlanet)
+
+// Lights
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(5, 5, 5);
+const ambientLight = new THREE.AmbientLight(0xffffff);
+
+scene.add(pointLight, ambientLight);
 
 function animate() {
   requestAnimationFrame(animate);
-  torus.rotation.x += 0.01
-  torus.rotation.z += 0.01
-  torus.rotation.y += 0.01
+  
+  redPlanet.rotation.x += 0.001
+  redPlanet.rotation.y += 0.003
   
   renderer.render(scene, camera);
 }
