@@ -1,6 +1,6 @@
 # 3arth
 
-Fun site that uses three.js to render our solar system
+Fun site that uses three.js to render our solar system (sort of...)
 
 <img src="screenshot.png" />
 
