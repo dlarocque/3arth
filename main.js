@@ -14,7 +14,7 @@ camera.position.z = 30;
 camera.position.x = 0
 
 // Torus
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const geometry = new THREE.SphereGeometry(3, 1000, 1000);
 const material = new THREE.MeshStandardMaterial( {color: 0xff6347} );
 const torus = new THREE.Mesh(geometry, material);
 
@@ -27,12 +27,28 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 
 scene.add(pointLight, ambientLight);
 
+function addStar() {
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const star = new THREE.Mesh(geometry, material);
+
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x, y, z);
+  scene.add(star);
+}
+
+Array(200).fill().forEach(addStar);
+
 function animate() {
   requestAnimationFrame(animate);
-  renderer.render(scene, camera);
   torus.rotation.x += 0.01
   torus.rotation.z += 0.01
   torus.rotation.y += 0.01
+  
+  renderer.render(scene, camera);
 }
 
 animate();
