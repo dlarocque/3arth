@@ -29,19 +29,20 @@ function addStar() {
 Array(400).fill().forEach(addStar);
 
 // Planet
-const planetGeometry = new THREE.SphereGeometry(3, 24, 24);
-const materialGeometry = new THREE.MeshStandardMaterial( {color: 0xff6347} );
-const planet = new THREE.Mesh(planetGeometry, materialGeometry);
+const earthTexture = new THREE.TextureLoader().load('earth.jpg');
+const earthGeometry = new THREE.SphereGeometry(3, 24, 24);
+const earthMaterial = new THREE.MeshStandardMaterial( { map: earthTexture } );
+const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 
-const redPlanetTexture = new THREE.TextureLoader().load('redplanet.jpeg');
-const redPlanetGeometry = new THREE.SphereGeometry(5, 24, 24);
-const redPlanetMaterial = new THREE.MeshBasicMaterial( { map: redPlanetTexture } );
-const redPlanet = new THREE.Mesh(redPlanetGeometry, redPlanetMaterial);
-redPlanet.position.x = 20
-redPlanet.position.y = 20
+const marsTexture = new THREE.TextureLoader().load('redplanet.jpeg');
+const marsGeometry = new THREE.SphereGeometry(5, 24, 24);
+const marsMaterial = new THREE.MeshBasicMaterial( { map: marsTexture } );
+const mars = new THREE.Mesh(marsGeometry, marsMaterial);
+mars.position.x = 20;
+mars.position.y = 20;
 
-scene.add(planet)
-scene.add(redPlanet)
+scene.add(earth);
+scene.add(mars);
 
 // Lights
 const pointLight = new THREE.PointLight(0xffffff);
@@ -52,9 +53,12 @@ scene.add(pointLight, ambientLight);
 
 function animate() {
   requestAnimationFrame(animate);
-  
-  redPlanet.rotation.x += 0.001
-  redPlanet.rotation.y += 0.003
+
+  earth.rotation.x += 0.0001;
+  earth.rotation.y += 0.005;
+
+  mars.rotation.x += 0.0001;
+  mars.rotation.y += 0.002;
   
   renderer.render(scene, camera);
 }
